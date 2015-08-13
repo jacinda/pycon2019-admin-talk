@@ -3,10 +3,12 @@
 	* Opening: This talk is all demonstration based.  There are very few slides, which I hope you approve of, even though we all know I'm tempting the presentation gods here.
 	* How many of you love all the good things the admin does for you? Isn't it a great feeling to add a couple lines of code and automatically have a GUI to interact with your database?  It feels blazingly fast, and your development races along. You're concentrating on building out features and out-pacing your competitors and this gives you a tremendous advantage as a developer and company. Your usage explodes and your database grows. As you add new features, your model relationships begin to get more complex and you have more joins. You've modified what the admin displays in order to give your admin users the ability to see more information at once. Sounds perfect, right?  Until one day...people start asking you why this page is taking longer and longer to load...and then you start seeing more load on your database...now you're thinking about whether you need to build out a custom admin interface and thinking about how that's going to take time away from your primary goals.
 	* But wait!  You've come to the right place. While there may be times where a custom interface is the way to go, there are other times where with a few tweaks you can improve your performance directly in the admin.
-	
+	* In this talk we're going to walk through a demonstration of the admin as used by a fictional library. I've used this example before when talking about the admin but continue to use it because most people intuitively understand the example and it's really easy to create some slow admin examples.
 
-* Makes development very fast
-* For many use cases, it "does the right thing" automatically.  For example, modifying the HTML in a callable won't cause new queries.
+### Walk-through of our example admin
+
+	* Basically, we have admins (Librarians / Volunteers), people who can check things out (Patrons), and things that can be checked out (various item types that inherit from an abstract class). We also have fines and check-out lengths that are specific to various item types.
+	* Librarians, Patrons, AbstractItem, Book, DVD, CD, Casette, Blu-Ray, 
 
 ### display of basic django-debug-toolbar usage
 
@@ -16,27 +18,27 @@
 
 ### What can sneak up on you (5 min)
 
-* Having lots of related items visible in the list view
-* Using list_select_related
-* Overriding queryset for additional select_related and prefetch_related options
+	* Having lots of related items visible in the list view
+	* Using list_select_related
+	* Overriding queryset for additional select_related and prefetch_related options
 
 ### What to avoid in callables (3 min)
 
-* Queries that will be executed on every row
+	* Queries that will be executed on every row
 
 ### The default widgets for many-to-many and foreign key fields (3 min)
 
-* What widgets to use to replace the defaults based on how many options you have in your database
+	* What widgets to use to replace the defaults based on how many options you have in your database
 
 ### Custom aggregates in the list view (i.e. custom querysets) (3 min)
 
-* When this is a good idea
-* When this is too slow and you need other options
+	* When this is a good idea
+	* When this is too slow and you need other options
 
 ### More general performance improvements through caching (3-5 min)
 
-* Django's caching framework
-* Caching with third-party packages / tools
-* Custom caching with Redis
+	* Django's caching framework
+	* Caching with third-party packages / tools
+	* Custom caching with Redis
 
 ### Questions (Remaining time)
