@@ -1,1 +1,2 @@
 * Lookup how to use python3 with virtualenvwrapper
+* check whether we can use cached_property django.utils.functional for our book count

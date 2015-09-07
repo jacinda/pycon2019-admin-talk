@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.conf import settings
 from django.db import models
 from django.utils import formats, timezone
@@ -19,6 +21,9 @@ class Author(models.Model):
 
     def full_name(self):
         return ', '.join([self.last_name, self.first_name])
+
+    def book_count(self):
+        return self.works.count()
 
 
 class AbstractItem(models.Model):
@@ -50,6 +55,9 @@ class AbstractItem(models.Model):
     class Meta:
         abstract = True
         unique_together = (('call_number', 'item_number'),)
+
+    def authors_display(self):
+        return list(self.authors.all())
 
 
 class Book(AbstractItem):
@@ -120,4 +128,8 @@ class LoanedBook(models.Model):
     # TODO: Create this as a property
     def fine(self):
         # NOTE: Fine should not be larger than the total value of the item
-        pass
+        if self.is_overdue():
+            return self.book.daily_fine * (self.due_date - timezone.now().date()).days
+        else:
+            return Decimal('0.00')
+
