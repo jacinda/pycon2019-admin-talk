@@ -1,2 +1,9 @@
 * Lookup how to use python3 with virtualenvwrapper
 * check whether we can use cached_property django.utils.functional for our book count
+
+* TransactionalTestCase - warn on number of queries
+* Warning about excessive queries if DEBUG is turned on (sprints?)
+* django_filter; date-range filter; BETWEEN is doing something weird
+* 10 most useful things for the django-admin
+* raw_id_fields
+* How does using .only with list_filters affect filters

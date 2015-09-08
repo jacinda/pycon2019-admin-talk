@@ -24,6 +24,7 @@ class Author(models.Model):
 
     def book_count(self):
         return self.works.count()
+    book_count.admin_order_field = 'book_count'
 
 
 class AbstractItem(models.Model):
@@ -57,7 +58,7 @@ class AbstractItem(models.Model):
         unique_together = (('call_number', 'item_number'),)
 
     def authors_display(self):
-        return list(self.authors.all())
+        return '; '.join([str(author) for author in self.authors.all()])
 
 
 class Book(AbstractItem):
