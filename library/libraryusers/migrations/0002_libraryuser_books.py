@@ -8,25 +8,39 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('auth', '0011_update_proxy_permissions'),
-        ('stacks', '0001_initial'),
-        ('libraryusers', '0001_initial'),
+        ("auth", "0011_update_proxy_permissions"),
+        ("stacks", "0001_initial"),
+        ("libraryusers", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='libraryuser',
-            name='books',
-            field=models.ManyToManyField(through='stacks.LoanedBook', to='stacks.Book'),
+            model_name="libraryuser",
+            name="books",
+            field=models.ManyToManyField(through="stacks.LoanedBook", to="stacks.Book"),
         ),
         migrations.AddField(
-            model_name='libraryuser',
-            name='groups',
-            field=models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.Group', verbose_name='groups'),
+            model_name="libraryuser",
+            name="groups",
+            field=models.ManyToManyField(
+                blank=True,
+                help_text="The groups this user belongs to. A user will get all permissions granted to each of their groups.",
+                related_name="user_set",
+                related_query_name="user",
+                to="auth.Group",
+                verbose_name="groups",
+            ),
         ),
         migrations.AddField(
-            model_name='libraryuser',
-            name='user_permissions',
-            field=models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.Permission', verbose_name='user permissions'),
+            model_name="libraryuser",
+            name="user_permissions",
+            field=models.ManyToManyField(
+                blank=True,
+                help_text="Specific permissions for this user.",
+                related_name="user_set",
+                related_query_name="user",
+                to="auth.Permission",
+                verbose_name="user permissions",
+            ),
         ),
     ]

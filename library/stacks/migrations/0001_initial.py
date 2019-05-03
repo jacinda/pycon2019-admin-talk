@@ -9,49 +9,82 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-    ]
+    dependencies = [migrations.swappable_dependency(settings.AUTH_USER_MODEL)]
 
     operations = [
         migrations.CreateModel(
-            name='Author',
+            name="Author",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('last_name', models.CharField(max_length=32)),
-                ('first_name', models.CharField(max_length=32)),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("last_name", models.CharField(max_length=32)),
+                ("first_name", models.CharField(max_length=32)),
             ],
         ),
         migrations.CreateModel(
-            name='Book',
+            name="Book",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('call_number', models.CharField(help_text='Usually Dewey Decimal or Library of Congress classification.', max_length=100)),
-                ('item_number', models.PositiveIntegerField(default=1, help_text='If we have multiple copies of this book, a unique identifier for the item.')),
-                ('borrowing_period', models.PositiveIntegerField(default=14, help_text='Number of days this item can be borrowed before being renewed.')),
-                ('max_renewal_count', models.IntegerField(default=2, help_text='Maxmimum number of times this item can be renewed.')),
-                ('maximum_fine', models.DecimalField(decimal_places=2, default='25.00', help_text='Maximum amount the patron will be fined for an overdue item. This is usually the replacement cost of the item.', max_digits=5)),
-                ('page_count', models.PositiveIntegerField()),
-                ('title', models.CharField(max_length=4000)),
-                ('daily_fine', models.DecimalField(decimal_places=2, default='0.25', help_text='Amount the patron will be fined per day for an overdue library book', max_digits=4)),
-                ('authors', models.ManyToManyField(related_name='works', to='stacks.Author')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "call_number",
+                    models.CharField(
+                        help_text="Usually Dewey Decimal or Library of Congress classification.", max_length=100
+                    ),
+                ),
+                (
+                    "item_number",
+                    models.PositiveIntegerField(
+                        default=1,
+                        help_text="If we have multiple copies of this book, a unique identifier for the item.",
+                    ),
+                ),
+                (
+                    "borrowing_period",
+                    models.PositiveIntegerField(
+                        default=14, help_text="Number of days this item can be borrowed before being renewed."
+                    ),
+                ),
+                (
+                    "max_renewal_count",
+                    models.IntegerField(default=2, help_text="Maxmimum number of times this item can be renewed."),
+                ),
+                (
+                    "maximum_fine",
+                    models.DecimalField(
+                        decimal_places=2,
+                        default="25.00",
+                        help_text="Maximum amount the patron will be fined for an overdue item. This is usually the replacement cost of the item.",
+                        max_digits=5,
+                    ),
+                ),
+                ("page_count", models.PositiveIntegerField()),
+                ("title", models.CharField(max_length=4000)),
+                (
+                    "daily_fine",
+                    models.DecimalField(
+                        decimal_places=2,
+                        default="0.25",
+                        help_text="Amount the patron will be fined per day for an overdue library book",
+                        max_digits=4,
+                    ),
+                ),
+                ("authors", models.ManyToManyField(related_name="works", to="stacks.Author")),
             ],
-            options={
-                'abstract': False,
-                'unique_together': {('call_number', 'item_number')},
-            },
+            options={"abstract": False, "unique_together": {("call_number", "item_number")}},
         ),
         migrations.CreateModel(
-            name='LoanedBook',
+            name="LoanedBook",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('checkout_date', models.DateField()),
-                ('due_date', models.DateField()),
-                ('return_date', models.DateField(blank=True, null=True)),
-                ('times_renewed', models.IntegerField(default=0)),
-                ('fine_paid', models.NullBooleanField()),
-                ('book', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='stacks.Book')),
-                ('patron', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("checkout_date", models.DateField()),
+                ("due_date", models.DateField()),
+                ("return_date", models.DateField(blank=True, null=True)),
+                ("times_renewed", models.IntegerField(default=0)),
+                ("fine_paid", models.NullBooleanField()),
+                ("book", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="stacks.Book")),
+                (
+                    "patron",
+                    models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+                ),
             ],
         ),
     ]

@@ -4,13 +4,14 @@ from django.contrib.auth.admin import UserAdmin
 from .models import LibraryUser
 from stacks.admin import LoanedBookInline
 
+
 @admin.register(LibraryUser)
 class LibraryUserAdmin(UserAdmin):
     inlines = (LoanedBookInline,)
 
     def get_fieldsets(self, request, obj=None):
         return super(LibraryUserAdmin, self).get_fieldsets(request, obj) + (
-                ('Custom Fields', {'fields': ('birthdate', 'gender')}),
+            ("Custom Fields", {"fields": ("birthdate", "gender")}),
         )
 
     def get_formsets_with_inlines(self, request, obj=None):
