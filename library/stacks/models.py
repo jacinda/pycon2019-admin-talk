@@ -93,8 +93,8 @@ class LoanedBook(models.Model):
     which are more performant than doing this in Python.  The current implementation demonstrates
     the performance implications.
     '''
-    patron = models.ForeignKey(settings.AUTH_USER_MODEL)
-    book = models.ForeignKey(Book)
+    patron = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
 
     checkout_date = models.DateField()
     due_date = models.DateField()
