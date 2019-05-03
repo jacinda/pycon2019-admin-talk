@@ -26,7 +26,9 @@ checkout_days = [(date.today() - timedelta(days=x)) for x in range(21)]
 
 # Create a series of fake authors; also create at least one book for each author
 for x in range(NUM_AUTHORS):
-    author = Author.objects.create(first_name=fake.first_name(), last_name=fake.last_name())
+    author = Author.objects.create(
+        first_name=fake.first_name(), last_name=fake.last_name()
+    )
     try:
         b = Book.objects.create(
             call_number=fake.numerify(text="###.###"),
@@ -75,4 +77,6 @@ for x in range(NUM_PATRONS):
         book = books.pop()
         checkout_date = random.choice(checkout_days)
         due_date = checkout_date + timedelta(days=14)
-        LoanedBook.objects.create(patron=user, book=book, checkout_date=checkout_date, due_date=due_date)
+        LoanedBook.objects.create(
+            patron=user, book=book, checkout_date=checkout_date, due_date=due_date
+        )

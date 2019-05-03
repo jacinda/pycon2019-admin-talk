@@ -15,7 +15,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="Author",
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
                 ("last_name", models.CharField(max_length=32)),
                 ("first_name", models.CharField(max_length=32)),
             ],
@@ -23,11 +31,20 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="Book",
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
                 (
                     "call_number",
                     models.CharField(
-                        help_text="Usually Dewey Decimal or Library of Congress classification.", max_length=100
+                        help_text="Usually Dewey Decimal or Library of Congress classification.",
+                        max_length=100,
                     ),
                 ),
                 (
@@ -40,12 +57,16 @@ class Migration(migrations.Migration):
                 (
                     "borrowing_period",
                     models.PositiveIntegerField(
-                        default=14, help_text="Number of days this item can be borrowed before being renewed."
+                        default=14,
+                        help_text="Number of days this item can be borrowed before being renewed.",
                     ),
                 ),
                 (
                     "max_renewal_count",
-                    models.IntegerField(default=2, help_text="Maxmimum number of times this item can be renewed."),
+                    models.IntegerField(
+                        default=2,
+                        help_text="Maxmimum number of times this item can be renewed.",
+                    ),
                 ),
                 (
                     "maximum_fine",
@@ -67,23 +88,45 @@ class Migration(migrations.Migration):
                         max_digits=4,
                     ),
                 ),
-                ("authors", models.ManyToManyField(related_name="works", to="stacks.Author")),
+                (
+                    "authors",
+                    models.ManyToManyField(related_name="works", to="stacks.Author"),
+                ),
             ],
-            options={"abstract": False, "unique_together": {("call_number", "item_number")}},
+            options={
+                "abstract": False,
+                "unique_together": {("call_number", "item_number")},
+            },
         ),
         migrations.CreateModel(
             name="LoanedBook",
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
                 ("checkout_date", models.DateField()),
                 ("due_date", models.DateField()),
                 ("return_date", models.DateField(blank=True, null=True)),
                 ("times_renewed", models.IntegerField(default=0)),
                 ("fine_paid", models.NullBooleanField()),
-                ("book", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="stacks.Book")),
+                (
+                    "book",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="stacks.Book"
+                    ),
+                ),
                 (
                     "patron",
-                    models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
                 ),
             ],
         ),

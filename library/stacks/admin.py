@@ -11,7 +11,9 @@ class AuthorAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(AuthorAdmin, self).get_queryset(request)
-        qs = qs.annotate(book_count=Count("works"))  # , articles_count=Count('articles'))
+        qs = qs.annotate(
+            book_count=Count("works")
+        )  # , articles_count=Count('articles'))
         return qs
 
 
@@ -19,8 +21,29 @@ class AuthorAdmin(admin.ModelAdmin):
 class BookAdmin(admin.ModelAdmin):
     list_display = ("__unicode__", "authors_display")
     fieldsets = (
-        ("Identifying Information", {"fields": ("title", "page_count", "authors", "call_number", "item_number")}),
-        ("Loan Information", {"fields": ("borrowing_period", "max_renewal_count", "daily_fine", "maximum_fine")}),
+        (
+            "Identifying Information",
+            {
+                "fields": (
+                    "title",
+                    "page_count",
+                    "authors",
+                    "call_number",
+                    "item_number",
+                )
+            },
+        ),
+        (
+            "Loan Information",
+            {
+                "fields": (
+                    "borrowing_period",
+                    "max_renewal_count",
+                    "daily_fine",
+                    "maximum_fine",
+                )
+            },
+        ),
     )
     filter_horizontal = ("authors",)
     list_max_show_all = 600

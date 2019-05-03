@@ -38,14 +38,19 @@ class AbstractItem(models.Model):
     """
 
     call_number = models.CharField(
-        max_length=100, help_text=_("Usually Dewey Decimal or Library of Congress classification.")
+        max_length=100,
+        help_text=_("Usually Dewey Decimal or Library of Congress classification."),
     )
     # TODO: This would be better as a callable that automatically got the next item number
     item_number = models.PositiveIntegerField(
-        default=1, help_text=_("If we have multiple copies of this book, a unique identifier for the item.")
+        default=1,
+        help_text=_(
+            "If we have multiple copies of this book, a unique identifier for the item."
+        ),
     )
     borrowing_period = models.PositiveIntegerField(
-        default=14, help_text=_("Number of days this item can be borrowed before being renewed.")
+        default=14,
+        help_text=_("Number of days this item can be borrowed before being renewed."),
     )
     max_renewal_count = models.IntegerField(
         default=2, help_text=_("Maxmimum number of times this item can be renewed.")
@@ -83,7 +88,9 @@ class Book(AbstractItem):
         max_digits=4,
         decimal_places=2,
         default="0.25",
-        help_text=_("Amount the patron will be fined per day for an overdue library book"),
+        help_text=_(
+            "Amount the patron will be fined per day for an overdue library book"
+        ),
     )
 
     def __unicode__(self):
@@ -128,9 +135,15 @@ class LoanedBook(models.Model):
 
     def highlighted_due_date(self):
         if self.is_overdue():
-            return format_html('<span style="background: red;">{}</span>', formats.localize(self.due_date))
+            return format_html(
+                '<span style="background: red;">{}</span>',
+                formats.localize(self.due_date),
+            )
         elif (self.due_date - timezone.now().date()) < timedelta(days=2):
-            return format_html('<span style="background: yellow;">{}</span>', formats.localize(self.due_date))
+            return format_html(
+                '<span style="background: yellow;">{}</span>',
+                formats.localize(self.due_date),
+            )
         else:
             return self.due_date
 
