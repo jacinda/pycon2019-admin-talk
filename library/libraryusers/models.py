@@ -33,5 +33,5 @@ class LibraryUser(AbstractUser):
     )
     books = models.ManyToManyField("stacks.Book", through="stacks.LoanedBook")
 
-    def __unicode__(self):
+    def __str__(self):
         return self.get_full_name()

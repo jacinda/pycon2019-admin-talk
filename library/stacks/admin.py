@@ -19,7 +19,7 @@ class AuthorAdmin(admin.ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = ("__unicode__", "authors_display")
+    list_display = ("__str__", "authors_display")
     fieldsets = (
         (
             "Identifying Information",

@@ -17,7 +17,7 @@ class Author(models.Model):
     last_name = models.CharField(max_length=32)
     first_name = models.CharField(max_length=32)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.full_name()
 
     def full_name(self):
@@ -89,11 +89,11 @@ class Book(AbstractItem):
         decimal_places=2,
         default="0.25",
         help_text=_(
-            "Amount the patron will be fined per day for an overdue library book"
+            "Amount the patron will be fined per day for an overdue library book."
         ),
     )
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
 
@@ -123,7 +123,7 @@ class LoanedBook(models.Model):
     times_renewed = models.IntegerField(default=0)
     fine_paid = models.NullBooleanField()
 
-    def __unicode__(self):
+    def __str__(self):
         return ": ".join([str(self.patron), str(self.book)])
 
     def is_overdue(self):
